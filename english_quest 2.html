@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#58cc72">
+<title>English Quest</title>
+<style>
+:root{--green:#58cc72;--dark:#258a45;--ink:#263238;--muted:#718078;--cream:#f7fff8;--line:#e4eee6;--yellow:#ffc83d;--red:#ff7777}
+*{box-sizing:border-box}body{margin:0;background:#f5fbf6;color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button{font:inherit;cursor:pointer}.app{max-width:520px;min-height:100vh;margin:auto;background:#fff;box-shadow:0 0 30px #183c2410;padding-bottom:82px}
+header{background:var(--green);color:#fff;padding:18px 18px 22px;border-radius:0 0 24px 24px}
+.top{display:flex;align-items:center;justify-content:space-between}.brand{font-weight:900;font-size:22px;letter-spacing:.2px}.stats{display:flex;gap:8px}.pill{background:#ffffff30;border:1px solid #ffffff55;border-radius:20px;padding:6px 10px;font-weight:800;font-size:13px}
+.welcome{margin-top:18px}.welcome h1{font-size:25px;margin:0 0 4px}.welcome p{margin:0;opacity:.94;font-size:14px}
+main{padding:18px}.section-title{font-size:19px;font-weight:850;margin:8px 0 12px}.level-tabs{display:flex;gap:8px;overflow:auto;padding-bottom:6px}.level{border:1px solid var(--line);background:#fff;color:#526257;border-radius:14px;padding:9px 15px;font-weight:800;white-space:nowrap}.level.active{background:#e9f9ec;border:2px solid var(--green);color:var(--dark)}
+.progress-card{border:1px solid var(--line);border-radius:18px;padding:14px;margin:14px 0;background:#fbfffb}.progress-row{display:flex;justify-content:space-between;font-size:13px;font-weight:750}.bar{height:10px;background:#e8f0e9;border-radius:20px;overflow:hidden;margin-top:9px}.fill{height:100%;background:var(--green);width:0%;transition:width .25s}
+.lesson{display:flex;align-items:center;gap:13px;border:1px solid var(--line);border-radius:18px;padding:13px;margin:10px 0;background:white}.lesson-icon{width:48px;height:48px;border-radius:15px;background:#e9f9ec;display:grid;place-items:center;font-size:24px}.lesson-info{flex:1}.lesson-info strong{display:block;font-size:15px}.lesson-info small{color:var(--muted)}.go{border:0;background:var(--green);color:#fff;border-radius:12px;padding:9px 13px;font-weight:850}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 6px calc(9px + env(safe-area-inset-bottom));z-index:5}.nav button{border:0;background:none;color:#748078;font-size:11px;font-weight:750;display:grid;gap:3px;justify-items:center}.nav button span{font-size:21px}.nav button.active{color:var(--dark)}
+.view{display:none}.view.active{display:block}
+.hero{background:#eaf9ed;border-radius:20px;padding:18px;text-align:center;margin:4px 0 18px}.mascot{font-size:54px}.hero h2{margin:5px 0;color:var(--dark)}.hero p{margin:0;color:#536b59;font-size:14px}
+.primary{width:100%;border:0;background:var(--green);color:white;font-weight:900;padding:14px;border-radius:15px;box-shadow:0 4px 0 var(--dark);margin-top:10px}.secondary{width:100%;border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:800;padding:12px;border-radius:14px;margin-top:9px}
+.quiz-top{display:flex;align-items:center;gap:10px;margin:4px 0 20px}.close{border:0;background:none;font-size:23px;color:#7b887e}.quizbar{height:10px;background:#eaf0eb;border-radius:20px;flex:1;overflow:hidden}.quizbar div{height:100%;background:var(--green);width:0%}.question{font-size:23px;font-weight:900;margin:20px 0 8px}.hint{color:var(--muted);font-size:14px}.answers{display:grid;gap:10px;margin:20px 0}.answer{padding:14px;border:2px solid var(--line);border-radius:15px;background:#fff;text-align:left;font-weight:750}.answer.selected{border-color:#58cc72;background:#effbf1}.answer.correct{border-color:#39a85a;background:#e9f9ec}.answer.wrong{border-color:#ff8585;background:#fff0f0}
+.feedback{display:none;border-radius:14px;padding:12px;font-weight:750;margin:12px 0}.feedback.show{display:block}.feedback.good{background:#e9f9ec;color:#258a45}.feedback.bad{background:#fff0f0;color:#b94a4a}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{padding:16px;border:1px solid var(--line);border-radius:17px;text-align:center}.stat b{font-size:25px;display:block;color:var(--dark)}.stat small{color:var(--muted)}
+.badge{display:inline-block;background:#fff5d9;border:1px solid #ffe29a;border-radius:20px;padding:7px 11px;margin:4px;font-weight:800;font-size:13px}
+footer{text-align:center;color:#9aa69d;font-size:11px;padding:18px}
+@media(min-width:600px){body{padding:18px 0}.app{border-radius:25px;overflow:hidden;min-height:calc(100vh - 36px)}.nav{bottom:18px;border-radius:0 0 25px 25px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="top"><div class="brand">🌿 ENGLISH QUEST</div><div class="stats"><div class="pill">⭐ <span id="xp">0</span> XP</div><div class="pill">🔥 <span id="streak">1</span></div></div></div>
+ <div class="welcome"><h1>¡Tu aventura comienza!</h1><p>Learn English. Have fun. Improve every day.</p></div>
+</header>
+<main>
+ <section id="home" class="view active">
+  <div class="hero"><div class="mascot">🦉</div><h2>Hello, learner!</h2><p>Aprendé inglés paso a paso con actividades cortas y divertidas.</p></div>
+  <div class="section-title">Elegí tu nivel</div>
+  <div class="level-tabs">
+   <button class="level active" data-level="A1">A1 Beginner</button><button class="level" data-level="A2">A2 Elementary</button><button class="level" data-level="B1">B1 Intermediate</button><button class="level" data-level="B2">B2 Upper-intermediate</button>
+  </div>
+  <div class="progress-card"><div class="progress-row"><span>Tu progreso</span><span id="progressText">0% completado</span></div><div class="bar"><div class="fill" id="progressFill"></div></div></div>
+  <div class="section-title" id="lessonHeading">Lecciones A1</div>
+  <div id="lessonList"></div>
+ </section>
+ <section id="lesson" class="view">
+  <div class="quiz-top"><button class="close" onclick="showView('home')">✕</button><div class="quizbar"><div id="quizFill"></div></div><b id="quizCount">1/5</b></div>
+  <div class="hint" id="quizTag">A1 · Vocabulary</div><div class="question" id="question">Question</div><div class="hint" id="instruction">Elegí la respuesta correcta.</div>
+  <div class="answers" id="answers"></div><div class="feedback" id="feedback"></div>
+  <button class="primary" id="checkBtn" onclick="checkAnswer()">Comprobar</button>
+  <button class="secondary" id="nextBtn" onclick="nextQuestion()" style="display:none">Continuar</button>
+ </section>
+ <section id="listening" class="view">
+  <div class="section-title">🎧 Listening practice</div><div class="hero"><div class="mascot">🎧</div><h2>Listen and learn</h2><p>Practicá expresiones comunes en inglés. Tocá el botón para escuchar.</p></div>
+  <div class="lesson"><div class="lesson-icon">👋</div><div class="lesson-info"><strong>Hello! How are you?</strong><small>¡Hola! ¿Cómo estás?</small></div><button class="go" onclick="speak('Hello! How are you?')">▶</button></div>
+  <div class="lesson"><div class="lesson-icon">🙏</div><div class="lesson-info"><strong>Thank you very much.</strong><small>Muchas gracias.</small></div><button class="go" onclick="speak('Thank you very much.')">▶</button></div>
+  <div class="lesson"><div class="lesson-icon">🗺️</div><div class="lesson-info"><strong>Where is the library?</strong><small>¿Dónde está la biblioteca?</small></div><button class="go" onclick="speak('Where is the library?')">▶</button></div>
+  <div class="lesson"><div class="lesson-icon">🍎</div><div class="lesson-info"><strong>I would like an apple.</strong><small>Me gustaría una manzana.</small></div><button class="go" onclick="speak('I would like an apple.')">▶</button></div>
+ </section>
+ <section id="progress" class="view">
+  <div class="section-title">🏆 My progress</div><div class="hero"><div class="mascot">🌟</div><h2>¡Seguí así!</h2><p>Cada lección te acerca más a tu meta.</p></div>
+  <div class="stat-grid"><div class="stat"><b id="statXp">0</b><small>Puntos XP</small></div><div class="stat"><b id="statDone">0</b><small>Lecciones completadas</small></div><div class="stat"><b id="statCorrect">0</b><small>Respuestas correctas</small></div><div class="stat"><b id="statAccuracy">0%</b><small>Precisión</small></div></div>
+  <div class="section-title" style="margin-top:22px">Tus insignias</div><div id="badges"><span class="badge">🌱 Primeros pasos</span></div>
+  <button class="secondary" onclick="resetProgress()">Reiniciar progreso de este dispositivo</button>
+ </section>
+ <section id="about" class="view">
+  <div class="section-title">Acerca de English Quest</div><div class="hero"><div class="mascot">🦉</div><h2>Learn English. Have Fun!</h2><p>Una aplicación educativa creada para practicar inglés desde nivel principiante hasta intermedio mediante lecciones, preguntas y escucha.</p></div>
+  <p><b>¿Cómo se juega?</b></p><p>1. Elegí un nivel.<br>2. Abrí una lección.<br>3. Respondé las cinco preguntas.<br>4. Ganá XP y revisá tu progreso.</p>
+  <p class="hint">Los resultados de esta versión se guardan en el navegador del dispositivo donde se utiliza.</p>
+ </section>
+</main>
+<nav class="nav">
+ <button class="active" data-view="home"><span>🏠</span>Inicio</button><button data-view="listening"><span>🎧</span>Listening</button><button data-view="progress"><span>🏆</span>Progreso</button><button data-view="about"><span>ℹ️</span>Acerca de</button>
+</nav>
+<footer>ENGLISH QUEST · A fun way to learn English</footer>
+</div>
+<script>
+const courses={
+ A1:[
+  {title:"Greetings & Introductions",icon:"👋",type:"Vocabulary",qs:[
+   ["What does “Hello” mean?","¿Qué significa “Hello”?","Hola",["Adiós","Gracias","Por favor"]],
+   ["How do you say “Buenos días”?","Elegí la traducción correcta.","Good morning",["Good night","Goodbye","Good afternoon"]],
+   ["Complete: My name ___ Ana.","Completá la oración.","is",["are","am","be"]],
+   ["What is the correct answer to “How are you?”","¿Cómo respondés?","I am fine, thank you.",["My name is fine.","I are ten.","Good night."]],
+   ["How do you say “Mucho gusto”?","Elegí la expresión correcta.","Nice to meet you.",["See you yesterday.","Good morning.","I am hungry."]]
+  ]},
+  {title:"Numbers & Colors",icon:"🔢",type:"Vocabulary",qs:[
+   ["How do you say “cinco” in English?","Elegí la respuesta.","Five",["Four","Fifteen","Nine"]],
+   ["Which color is “blue”?","Seleccioná el color correcto.","Azul",["Rojo","Verde","Amarillo"]],
+   ["What number is “twelve”?","Elegí el número.","12",["20","2","10"]],
+   ["Complete: The sun is ___.","El sol es...","yellow",["purple","black","pink"]],
+   ["How do you spell 3?","Elegí la palabra.","Three",["Tree","Free","Thirteen"]]
+  ]},
+  {title:"Everyday Objects",icon:"🎒",type:"Vocabulary",qs:[
+   ["What is “book” in Spanish?","Elegí la traducción.","Libro",["Mesa","Silla","Puerta"]],
+   ["“Chair” means...","¿Qué significa?","Silla",["Ventana","Lápiz","Cama"]],
+   ["Choose the correct article: ___ apple","Completá la frase.","an",["a","thee","is"]],
+   ["What do you use to write?","¿Qué usás para escribir?","A pencil",["A plate","A shoe","A window"]],
+   ["“School” means...","Elegí la traducción.","Escuela",["Hospital","Tienda","Parque"]]
+  ]}
+ ],
+ A2:[
+  {title:"Daily Routines",icon:"⏰",type:"Grammar",qs:[
+   ["She ___ up at 6 a.m.","Present simple.","gets",["get","getting","got"]],
+   ["I ___ breakfast every morning.","Present simple.","have",["has","having","had"]],
+   ["What does “usually” mean?","Elegí el significado.","Usualmente",["Nunca","Ayer","Mañana"]],
+   ["They ___ to school by bus.","Present simple.","go",["goes","going","gone"]],
+   ["He doesn't ___ coffee.","Después de doesn't usamos verbo base.","like",["likes","liking","liked"]]
+  ]},
+  {title:"Places & Directions",icon:"🗺️",type:"Vocabulary",qs:[
+   ["Where can you borrow books?","¿Dónde podés pedir libros prestados?","At the library",["At the bakery","At the airport","At the bank"]],
+   ["“Turn left” means...","Elegí la traducción.","Girá a la izquierda",["Girá a la derecha","Seguí recto","Detenete"]],
+   ["The opposite of “near” is...","Buscá el antónimo.","Far",["Next","Close","Behind"]],
+   ["A place where you see a doctor is a...","Completá.","hospital",["museum","station","market"]],
+   ["“Across from” means...","Elegí la expresión.","Enfrente de",["Debajo de","Dentro de","Al lado de"]]
+  ]},
+  {title:"Past Experiences",icon:"📖",type:"Grammar",qs:[
+   ["Yesterday, I ___ a movie.","Past simple.","watched",["watch","watches","watching"]],
+   ["She ___ to the beach last Sunday.","Past simple.","went",["go","goes","going"]],
+   ["The past of “eat” is...","Elegí el pasado.","ate",["eated","eats","eating"]],
+   ["We ___ happy yesterday.","Pasado del verbo to be.","were",["are","is","be"]],
+   ["“Last night” means...","Elegí la traducción.","Anoche",["Esta mañana","Mañana por la noche","La semana pasada"]]
+  ]}
+ ],
+ B1:[
+  {title:"Present Perfect",icon:"✨",type:"Grammar",qs:[
+   ["I have ___ my homework.","Past participle.","finished",["finish","finishing","finishes"]],
+   ["She has never ___ sushi.","Past participle of try.","tried",["try","tries","trying"]],
+   ["Have you ever ___ to Costa Rica?","Past participle of be.","been",["be","was","being"]],
+   ["They ___ lived here for five years.","Auxiliary for they.","have",["has","is","was"]],
+   ["“Already” is commonly used to mean...","Elegí el significado.","Ya",["Todavía no","Nunca","Ayer"]]
+  ]},
+  {title:"Conditionals",icon:"🔀",type:"Grammar",qs:[
+   ["If it rains, I ___ at home.","First conditional.","will stay",["stayed","staying","stays"]],
+   ["If you heat ice, it ___.","Zero conditional.","melts",["will melted","melted","melting"]],
+   ["If I study, I ___ the exam.","First conditional.","will pass",["passed","passing","passes"]],
+   ["If people don't drink water, they ___ thirsty.","Zero conditional.","get",["got","will got","getting"]],
+   ["Choose the correct phrase.","First conditional.","If I see her, I will say hello.",["If I will see her, I say hello.","If I saw her, I will say hello.","If I seeing her, I say hello."]]
+  ]},
+  {title:"Travel & Experiences",icon:"✈️",type:"Vocabulary",qs:[
+   ["A person who travels is a...","Elegí la palabra.","traveler",["teacher","driver","baker"]],
+   ["“Luggage” means...","Elegí la traducción.","Equipaje",["Pasaporte","Boleto","Aeropuerto"]],
+   ["Where do you board a plane?","¿Dónde abordás un avión?","At the gate",["At the platform","At the checkout","At the classroom"]],
+   ["“Book a room” means...","Elegí la traducción.","Reservar una habitación",["Leer un libro","Limpiar un cuarto","Cerrar una puerta"]],
+   ["The opposite of “arrive” is...","Buscá el antónimo.","Depart",["Enter","Visit","Stay"]]
+  ]}
+ ],
+ B2:[
+  {title:"Advanced Vocabulary",icon:"🧠",type:"Vocabulary",qs:[
+   ["“Reliable” means...","Elegí el significado.","Confiable",["Ruidoso","Peligroso","Costoso"]],
+   ["Choose a synonym for “improve”.","Buscá un sinónimo.","Enhance",["Forget","Reduce","Avoid"]],
+   ["“Although” expresses...","¿Qué relación expresa?","Contrast",["Cause","Time","Addition"]],
+   ["“Achieve a goal” means...","Elegí la traducción.","Alcanzar una meta",["Evitar un problema","Cambiar de opinión","Perder una oportunidad"]],
+   ["Choose the correct collocation.","Combinación natural en inglés.","Make a decision",["Do a decision","Take a homework","Make an advice"]]
+  ]},
+  {title:"Passive Voice",icon:"🔄",type:"Grammar",qs:[
+   ["The book ___ written in 1990.","Passive voice.","was",["is","has","were"]],
+   ["English ___ in many countries.","Present simple passive.","is spoken",["speaks","spoke","is speaking"]],
+   ["The windows were ___ yesterday.","Past participle.","cleaned",["clean","cleaning","cleans"]],
+   ["The emails ___ sent every morning.","Present simple passive, plural.","are",["is","was","be"]],
+   ["Choose the passive sentence.","Identificá la voz pasiva.","The cake was made by my mother.",["My mother makes the cake.","My mother is making cake.","My mother make the cake."]]
+  ]},
+  {title:"Opinions & Discussion",icon:"💬",type:"Communication",qs:[
+   ["“In my opinion” introduces...","Elegí su función.","A personal viewpoint",["A question","A location","A time"]],
+   ["Which phrase politely disagrees?","Elegí una frase respetuosa.","I see your point, but...",["You are totally wrong.","Be quiet.","That is stupid."]],
+   ["“Furthermore” means...","Elegí la traducción.","Además",["Sin embargo","Por eso","Aunque"]],
+   ["Choose the correct phrase.","Expresión natural.","I strongly agree with you.",["I strongly am agree.","I agree strongly you.","I strong agree with you."]],
+   ["A conclusion usually...","¿Qué hace una conclusión?","Summarizes the main ideas",["Introduces an unrelated topic","Lists random words","Asks for directions"]]
+  ]}
+ ]
+};
+let level="A1",currentLesson=null,qIndex=0,chosen=-1,locked=false;
+let data=JSON.parse(localStorage.getItem("eq-progress")||'{"xp":0,"done":[],"correct":0,"total":0}');
+function save(){localStorage.setItem("eq-progress",JSON.stringify(data));updateStats()}
+function updateStats(){document.getElementById("xp").textContent=data.xp;document.getElementById("streak").textContent="1";document.getElementById("statXp").textContent=data.xp;document.getElementById("statDone").textContent=data.done.length;document.getElementById("statCorrect").textContent=data.correct;document.getElementById("statAccuracy").textContent=data.total?Math.round(data.correct/data.total*100)+"%":"0%";let total=Object.values(courses).flat().length;let pct=Math.round(data.done.length/total*100);document.getElementById("progressText").textContent=pct+"% completado";document.getElementById("progressFill").style.width=pct+"%";let b=document.getElementById("badges");let arr=[];if(data.done.length>=1)arr.push("🌱 Primera lección");if(data.done.length>=3)arr.push("📚 Aprendiz constante");if(data.xp>=100)arr.push("⭐ 100 XP");if(data.correct>=20)arr.push("🎯 20 respuestas correctas");b.innerHTML=arr.length?arr.map(x=>'<span class="badge">'+x+'</span>').join(""):'<span class="badge">🌱 Tus primeras insignias te esperan</span>'}
+function renderLessons(){document.getElementById("lessonHeading").textContent="Lecciones "+level;let list=document.getElementById("lessonList");list.innerHTML="";courses[level].forEach((l,i)=>{let done=data.done.includes(level+"-"+i);let el=document.createElement("div");el.className="lesson";el.innerHTML='<div class="lesson-icon">'+l.icon+'</div><div class="lesson-info"><strong>'+l.title+'</strong><small>'+l.type+' · 5 preguntas'+(done?' · ✓ Completada':'')+'</small></div><button class="go">'+(done?'Repetir':'Empezar')+'</button>';el.querySelector("button").onclick=()=>startLesson(i);list.appendChild(el)})}
+document.querySelectorAll(".level").forEach(btn=>btn.onclick=()=>{document.querySelectorAll(".level").forEach(x=>x.classList.remove("active"));btn.classList.add("active");level=btn.dataset.level;renderLessons()});
+document.querySelectorAll(".nav button").forEach(btn=>btn.onclick=()=>{document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));btn.classList.add("active");showView(btn.dataset.view)});
+function showView(id){document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById(id).classList.add("active");if(id==="progress")updateStats()}
+function startLesson(i){currentLesson=i;qIndex=0;chosen=-1;locked=false;showView("lesson");renderQuestion()}
+function renderQuestion(){let l=courses[level][currentLesson],q=l.qs[qIndex];document.getElementById("quizTag").textContent=level+" · "+l.type;document.getElementById("quizCount").textContent=(qIndex+1)+"/"+l.qs.length;document.getElementById("quizFill").style.width=(qIndex/l.qs.length*100)+"%";document.getElementById("question").textContent=q[0];document.getElementById("instruction").textContent=q[1];let opts=[q[2],...q[3]].sort(()=>Math.random()-.5);let box=document.getElementById("answers");box.innerHTML="";opts.forEach((o,i)=>{let b=document.createElement("button");b.className="answer";b.textContent=o;b.onclick=()=>{if(locked)return;chosen=i;document.querySelectorAll(".answer").forEach(x=>x.classList.remove("selected"));b.classList.add("selected")};box.appendChild(b)});document.getElementById("feedback").className="feedback";document.getElementById("feedback").textContent="";document.getElementById("checkBtn").style.display="block";document.getElementById("nextBtn").style.display="none"}
+function checkAnswer(){if(chosen<0){alert("Elegí una respuesta primero.");return}let q=courses[level][currentLesson].qs[qIndex],buttons=[...document.querySelectorAll(".answer")],selected=buttons[chosen],good=selected.textContent===q[2];locked=true;data.total++;if(good){data.correct++;data.xp+=10;selected.classList.add("correct")}else{selected.classList.add("wrong");buttons.forEach(b=>{if(b.textContent===q[2])b.classList.add("correct")})}save();let f=document.getElementById("feedback");f.className="feedback show "+(good?"good":"bad");f.textContent=good?"¡Excelente! +10 XP 🎉":"¡Casi! La respuesta correcta es: "+q[2];document.getElementById("checkBtn").style.display="none";document.getElementById("nextBtn").style.display="block";document.getElementById("nextBtn").textContent=qIndex===4?"Terminar lección":"Continuar"}
+function nextQuestion(){if(qIndex<4){qIndex++;chosen=-1;locked=false;renderQuestion()}else{let key=level+"-"+currentLesson;if(!data.done.includes(key)){data.done.push(key);save()}document.getElementById("quizTag").textContent="¡Lección completada!";document.getElementById("quizCount").textContent="✓";document.getElementById("quizFill").style.width="100%";document.getElementById("question").textContent="Great job! 🎉";document.getElementById("instruction").textContent="Terminaste esta lección. ¡Seguí practicando!";document.getElementById("answers").innerHTML='<div class="hero"><div class="mascot">🏆</div><h2>Lesson completed!</h2><p>Ganaste puntos y avanzaste en tu aprendizaje.</p></div>';document.getElementById("feedback").className="feedback";document.getElementById("checkBtn").style.display="none";document.getElementById("nextBtn").textContent="Volver a las lecciones";document.getElementById("nextBtn").onclick=()=>{document.getElementById("nextBtn").onclick=nextQuestion;showView("home");renderLessons()}}}
+function speak(t){if(!("speechSynthesis"in window)){alert("Tu navegador no permite reproducir audio.");return}let u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.85;speechSynthesis.speak(u)}
+function resetProgress(){if(confirm("¿Seguro que querés reiniciar todos tus puntos y resultados en este dispositivo?")){data={xp:0,done:[],correct:0,total:0};save();renderLessons()}}
+renderLessons();updateStats();
+</script>
+</body></html>
